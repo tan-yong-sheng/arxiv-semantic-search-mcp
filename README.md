@@ -79,17 +79,14 @@ The server provides the following tools for academic paper search:
 
 The `get_categories` function returns the complete ArXiv category taxonomy with **170+ categories** across all major fields:
 
-**Computer Science** (44 categories) - AI, Machine Learning, Vision, Databases, Networks, etc.
-**Mathematics** (44 categories) - Algebra, Analysis, Geometry, Statistics, etc.
-**Physics** (80+ categories) - Astrophysics, Condensed Matter, High Energy, Quantum, etc.
-**Economics** (3 categories) - Econometrics, General Economics, Theory
-**Electrical Engineering** (4 categories) - Signal Processing, Systems, etc.
-**Quantitative Biology** (10 categories) - Genomics, Biomolecules, etc.
-**Quantitative Finance** (9 categories) - Computational Finance, Risk Management, etc.
-**Statistics** (6 categories) - Applications, Computation, Methodology, etc.
-
-**Search Limitations:** The `search_papers` function currently supports filtering by these 9 categories:
-`cs.AI`, `cs.LG`, `cs.CL`, `cs.CV`, `cs.IR`, `cs.NE`, `stat.ML`, `math.ST`, `physics.data-an`
+- **Computer Science** (44 categories) - AI, Machine Learning, Vision, Databases, Networks, etc.
+- **Mathematics** (44 categories) - Algebra, Analysis, Geometry, Statistics, etc.
+- **Physics** (80+ categories) - Astrophysics, Condensed Matter, High Energy, Quantum, etc.
+- **Economics** (3 categories) - Econometrics, General Economics, Theory
+- **Electrical Engineering** (4 categories) - Signal Processing, Systems, etc.
+- **Quantitative Biology** (10 categories) - Genomics, Biomolecules, etc.
+- **Quantitative Finance** (9 categories) - Computational Finance, Risk Management, etc.
+- **Statistics** (6 categories) - Applications, Computation, Methodology, etc.
 
 ## Development
 
