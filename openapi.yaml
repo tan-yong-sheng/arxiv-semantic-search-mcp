@@ -1,0 +1,201 @@
+openapi: 3.0.3
+info:
+  title: ArXiv Xplorer API
+  description: API for searching academic papers from ArXiv with advanced filtering capabilities
+  version: 1.0.0
+  contact:
+    url: https://arxivxplorer.com
+servers:
+  - url: https://search.arxivxplorer.com
+    description: Production server
+paths:
+  /:
+    get:
+      summary: Search articles
+      description: Search for academic articles with optional filtering by categories and years
+      operationId: searchArticles
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Search query terms (space-separated or plus-separated)
+          schema:
+            type: string
+            example: llm evaluation framework
+        - name: cats
+          in: query
+          required: false
+          description: Filter by arXiv categories (can be specified multiple times)
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - cs.AI
+                - cs.LG
+                - cs.CL
+                - cs.CV
+                - cs.IR
+                - cs.NE
+                - stat.ML
+                - math.ST
+                - physics.data-an
+          style: form
+          explode: true
+          examples:
+            ai_ml:
+              summary: AI and Machine Learning
+              value:
+                - cs.AI
+                - cs.LG
+            single_category:
+              summary: Just AI
+              value:
+                - cs.AI
+        - name: year
+          in: query
+          required: false
+          description: Filter by publication years (can be specified multiple times)
+          schema:
+            type: array
+            items:
+              type: integer
+              minimum: 1991
+              maximum: 2025
+          style: form
+          explode: true
+          examples:
+            recent_years:
+              summary: Recent 5 years
+              value:
+                - 2025
+                - 2024
+                - 2023
+                - 2022
+                - 2021
+            single_year:
+              summary: Just 2024
+              value:
+                - 2024
+      responses:
+        '200':
+          description: Successful search response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Too many requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+        - Search
+components:
+  schemas:
+    SearchResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Article'
+        total_count:
+          type: integer
+          description: Total number of articles found
+        query:
+          type: string
+          description: The search query that was executed
+        filters:
+          $ref: '#/components/schemas/AppliedFilters'
+      required:
+        - results
+        - total_count
+        - query
+    Article:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ArXiv article identifier
+          example: '2301.12345'
+        title:
+          type: string
+          description: Article title
+        authors:
+          type: array
+          items:
+            type: string
+          description: List of article authors
+        abstract:
+          type: string
+          description: Article abstract
+        categories:
+          type: array
+          items:
+            type: string
+          description: ArXiv categories assigned to this article
+        published_date:
+          type: string
+          format: date
+          description: Publication date in YYYY-MM-DD format
+        updated_date:
+          type: string
+          format: date
+          description: Last update date in YYYY-MM-DD format
+        arxiv_url:
+          type: string
+          format: uri
+          description: URL to the article on ArXiv
+        pdf_url:
+          type: string
+          format: uri
+          description: Direct URL to the PDF version
+      required:
+        - id
+        - title
+        - authors
+        - abstract
+        - categories
+        - published_date
+    AppliedFilters:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            type: string
+          description: Categories that were filtered on
+        years:
+          type: array
+          items:
+            type: integer
+          description: Years that were filtered on
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        code:
+          type: integer
+          description: Error code
+      required:
+        - error
+        - code
+tags:
+  - name: Search
+    description: Operations for searching academic articles
