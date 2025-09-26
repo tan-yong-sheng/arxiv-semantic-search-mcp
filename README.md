@@ -2,40 +2,80 @@
 
 A Model Context Protocol (MCP) server that provides semantic search functionality for academic papers from ArXiv.
 
-## Features
+## Quick Start
 
-- **Search Papers**: Search for academic papers with advanced filtering by categories and years
-- **Category Discovery**: Get detailed information about supported ArXiv categories
-- **Type Safety**: Full TypeScript support with comprehensive type definitions
-- **Error Handling**: Robust error handling and validation
+No environment variables required - this server works out of the box with the ArXiv Xplorer API.
 
 ## Installation
 
-```bash
-npm install arxiv-semantic-search-mcp
+### 1. Using with Claude Desktop
+
+Add the server config to your Claude Desktop configuration file:
+
+#### For Local Installation (on Windows)
+
+```json
+"arxiv-semantic-search-mcp": {
+  "command": "cmd",
+  "args": [
+        "/k",
+        "npx",
+        "-y",
+        "arxiv-semantic-search-mcp"
+      ]
+}
 ```
 
-## Usage
+#### For Local installation (on Linux)
 
-### MCP Server Tools
+```json
+"arxiv-semantic-search-mcp": {
+  "command": "npx",
+  "args": [
+        "-y",
+        "arxiv-semantic-search-mcp"
+      ]
+}
+```
 
-This server provides two main tools:
+#### For Development (on Windows / Linux)
 
-#### 1. `search_papers`
+```bash
+cd /path/to/arxiv-semantic-search-mcp
+npm run build
+```
 
-Search for academic papers from ArXiv with advanced filtering capabilities.
+```json
+"arxiv-semantic-search-mcp": {
+  "command": "node",
+  "args": [
+        "/path/to/arxiv-semantic-search-mcp/build/index.js"
+      ]
+}
+```
 
-**Parameters:**
-- `query` (required): Search query terms
-- `categories` (optional): Array of category codes (e.g., `["cs.AI", "cs.LG"]`)
-- `years` (optional): Array of publication years (e.g., `[2024, 2023]`)
+Location of the configuration file:
+- Windows: `%APPDATA%/Claude/claude_desktop_config.json`
+- MacOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
 
-#### 2. `get_categories`
+## Available Tools
 
-Get JSON array of all ArXiv categories with ID and name. Returns: ["cs.AI - Artificial Intelligence", "cs.LG - Machine Learning", "stat.TH - Statistics Theory", ...]
+The server provides the following tools for academic paper search:
 
+### Search & Discovery Tools
 
-### Supported Categories
+- `search_papers` - Search for academic papers from ArXiv with advanced filtering capabilities including query terms, category filtering, and year filtering. Returns detailed paper information including title, authors, abstract, categories, publication date, and direct links to both the paper page and PDF.
+- `get_categories` - Get a comma-separated list of all supported ArXiv categories with their IDs and names.
+
+## Example Queries
+
+### Search & Discovery
+- "Find recent papers about machine learning"
+- "Show me papers about computer vision published in 2023"
+- "Search for papers in the cs.AI category about neural networks"
+- "Find papers about quantum physics published between 2020-2024"
+
+## Supported Categories
 
 The `get_categories` function returns the complete ArXiv category taxonomy with **170+ categories** across all major fields:
 
@@ -53,22 +93,16 @@ The `get_categories` function returns the complete ArXiv category taxonomy with 
 
 ## Development
 
-### Prerequisites
-
-- Node.js >= 18.0.0
-- npm >= 8.0.0
-
-### Setup
+If you want to contribute or modify the server:
 
 ```bash
 # Clone the repository
 git clone https://github.com/tan-yong-sheng/arxiv-semantic-search-mcp.git
-cd arxiv-semantic-search-mcp
 
 # Install dependencies
 npm install
 
-# Build the project
+# Build the server
 npm run build
 
 # Run linting
@@ -76,6 +110,9 @@ npm run lint
 
 # Run all checks
 npm run check
+
+# For development with auto-rebuild
+npm run dev
 ```
 
 ### Scripts
@@ -96,11 +133,7 @@ MIT License - see LICENSE file for details.
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run `npm run check` to ensure everything works
-5. Submit a pull request
+Contributions are welcome! Please feel free to open an issue or submit a pull request.
 
 ## Support
 
