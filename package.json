@@ -4,6 +4,9 @@
   "description": "MCP server for ArXiv semantic search with paper discovery and category browsing",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "bin": {
+    "arxiv-semantic-search-mcp": "dist/index.js"
+  },
   "scripts": {
     "build": "tsc",
     "check": "npm run build && npm run lint",
