@@ -70,7 +70,6 @@ The server provides the following tools for academic paper search:
 ## Example Queries
 
 ### Search & Discovery
-- "Find recent papers about machine learning"
 - "Show me papers about computer vision published in 2023"
 - "Search for papers in the cs.AI category about neural networks"
 - "Find papers about quantum physics published between 2020-2024"
