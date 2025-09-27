@@ -21,10 +21,11 @@ server.registerTool(
     inputSchema: {
       query: z.string().describe('Search query terms (space-separated or plus-separated)'),
       categories: z.array(z.enum(['cs.AI', 'cs.LG', 'cs.CL', 'cs.CV', 'cs.IR', 'cs.NE', 'stat.ML', 'math.ST', 'physics.data-an'])).optional().describe('Filter by ArXiv categories (can specify multiple categories) - see get_categories for full list'),
-      years: z.array(z.number().min(1991).max(new Date().getFullYear())).optional().describe('Filter by publication years (can specify multiple years)')
+      years: z.array(z.number().min(1991).max(new Date().getFullYear())).optional().describe('Filter by publication years (can specify multiple years)'),
+      page: z.number().min(1).optional().describe('Page number for pagination (starts from 1, each page returns 10 papers)')
     }
   },
-  async ({ query, categories, years }: SearchPapersParams) => {
+  async ({ query, categories, years, page }: SearchPapersParams & { page?: number }) => {
     try {
       // Validate categories if provided
       let validatedCategories = categories;
@@ -62,7 +63,7 @@ server.registerTool(
         }
       }
 
-      const results = await client.searchPapers(query, validatedCategories, years);
+      const results = await client.searchPapers(query, validatedCategories, years, page);
 
       // Format papers to match the desired structure
       const formattedPapers = results.results.slice(0, 10).map(paper => ({

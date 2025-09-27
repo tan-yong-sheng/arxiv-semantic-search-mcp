@@ -37,4 +37,5 @@ export interface SearchPapersParams {
   query: string;
   categories?: string[];
   years?: number[];
+  page?: number;
 }

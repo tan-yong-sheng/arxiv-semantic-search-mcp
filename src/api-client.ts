@@ -18,7 +18,8 @@ export class ArXivXplorerClient {
   async searchPapers(
     query: string,
     categories?: string[],
-    years?: number[]
+    years?: number[],
+    page?: number
   ): Promise<SearchResponse> {
     try {
       const params: Record<string, unknown> = { q: query };
@@ -29,6 +30,10 @@ export class ArXivXplorerClient {
 
       if (years && years.length > 0) {
         params.year = years;
+      }
+
+      if (page) {
+        params.page = page;
       }
 
       const response = await this.client.get('/', { params });
