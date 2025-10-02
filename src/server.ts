@@ -9,7 +9,7 @@ const client = new ArXivXplorerClient();
 
 const server = new McpServer({
   name: 'arxiv-semantic-search-mcp',
-  version: '0.0.1'
+  version: '0.0.5'
 });
 
 // Register search_papers tool

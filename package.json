@@ -24,7 +24,7 @@
     "academic-papers",
     "research"
   ],
-  "author": "Your Name",
+  "author": "Tan Yong Sheng",
   "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
@@ -49,6 +49,6 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/arxiv-semantic-search-mcp.git"
+    "url": "https://github.com/tan-yong-sheng/arxiv-semantic-search-mcp.git"
   }
 }
